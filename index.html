@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css" type="text/css">
+    <link href="fontawesome/css/all.css" rel="stylesheet">
+    <title>GifOS Maca Molina</title>
+</head>
+<body>
+    <header>
+        <div class="line"></div>
+        <nav>
+            <div class="line1"></div>
+            <div class=nav_wrapper>
+                <img class="logo" src="images/logo-mobile.svg" alt="logo"/> 
+                <img class="burger" src="images/burger.svg" alt="burger" />
+                <img class="cruz" src="images/Button-close-hover-modo-noc.svg" alt="close" />
+            </div>
+            <input class="input" type="checkbox" id="toggle"/>
+            <ul class="drop-menu">
+                <li><a class="switch" id="switch" href="#">Modo Nocturno</a></li>
+                <li><a href="#">Favoritos</a></li>
+                <li><a href="#">Gifos</a></li>
+            </ul>
+        </nav> 
+    </header>
+    <main>
+        <section class="ppal">
+            <h1>Inspírate, busca, guarda y crea los mejores <span class="gifos">GIFOS</span></h1>
+            <img  src="images/ilustra_header.svg" alt="image"/>
+            <div class="busqueda">
+                <!--<form onsubmit="return false">-->
+                    <input type="text" id="busqueda" placeholder="Busca GIFOS y más" class="search">
+                    <img src="images/icon-search.svg" alt="busqueda" onclick="search(this)"/>
+                    <div class="autocompletar" id="autocompletar"></div>
+                <!--</form>-->
+                
+            </div>
+            <div class="sugerencias">
+                <h3>Trending:</h3>
+                <div class="resulTrendingTag" id="resulTrendingTag"></div>
+            </div>
+            <div class="resultado" id="resultadoTitulo"></div>
+            <div class="resultado" id="resultado"></div>
+            <button>Ver Más</button>
+        </section>
+        <section class="trending">
+            <h2>Trending GIFOS</h2>
+            <h3>Mira los ultimos GIFOS de nuestras comunidad.</h3>
+            <img src="images/button-slider-left.svg" alt="izquierda" />
+            <div class="resulTrendingGif" id="resulTrendingGif"></div>
+            <img src="images/Button-Slider-right.svg" alt="derecha" />
+        </section>
+    </main>
+    <footer>
+        <h3>Compartir en</h3>
+        <div class="emoticones">
+            <a href="www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a> 
+            <a href="www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <h5>© GIFOS 2020 All Rights Reserved.</h5>
+    </footer>
+    <div class="line"></div>
+    <script src="javascript/app.js" async></script>
+</body>
+</html>
