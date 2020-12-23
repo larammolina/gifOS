@@ -9,6 +9,8 @@
 
 body {
     margin: 1px;
+    background-color: white;
+    transition: .3s ease all;
 }
 
 /* inicio menu hamburguesa */
@@ -73,7 +75,8 @@ nav .input{
     flex-direction: column;
     text-align: center;
     position: relative;
-    opacity: 80%;
+    opacity: 30%;
+    /*z-index: -1;*/
 }
 
 .drop-menu li {
@@ -83,6 +86,22 @@ nav .input{
 
 /* fin de menu hamburguesa */
 
+/* inicio modo noche */
+
+.dark {
+    background-color: #37383C !important;
+    color: #FFFFFF !important;
+}
+
+.darkTrending{
+    background-color:#222326 !important;    
+}
+
+.darkTitle{
+    color: #FFFFFF !important;
+}
+
+/*fin del modo noche*/
 
 .ppal h1{
     font-family: 'Montserrat', sans-serif;
@@ -300,6 +319,16 @@ footer h5 {
     }
     
     /*fin del menu */
+
+    /* inicio modo noche */
+
+    .dark {
+        background-color: #37383C;
+        color: #FFFFFF;
+    }
+
+/*fin del modo noche*/
+
 
     .busqueda{
         width: 551px;
