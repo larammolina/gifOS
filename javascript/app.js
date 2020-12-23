@@ -103,3 +103,25 @@ document.getElementById("busqueda").addEventListener('keyup', function (e) {
     searchAuto(this);
     
 });
+
+//modo noche
+const btnSwitch = document.querySelector('#switch');
+
+btnSwitch.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.getElementById('ppal').classList.toggle('dark');
+    document.getElementById('nav').classList.toggle('dark');
+    document.getElementById('title').classList.toggle('darkTitle');
+    document.getElementById('drop-menu').classList.toggle('dark');
+    document.getElementById('trending').classList.toggle('darkTrending');
+    //btnSwitch.classList.toggle('active');
+
+    //guardo modo en localstorage
+
+    //consulto el modo actual
+    //if(localStorage.getItem('dark-mode') === "true"){
+    //    document.body.classList.add('dark');
+    //} else {
+    //    document.body.classList.remove('dark');
+    //}
+});
