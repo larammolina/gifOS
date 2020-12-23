@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="line"></div>
-        <nav>
+        <nav class="" id="nav">
             <div class="line1"></div>
             <div class=nav_wrapper>
                 <img class="logo" src="images/logo-mobile.svg" alt="logo"/> 
@@ -18,16 +18,16 @@
                 <img class="cruz" src="images/Button-close-hover-modo-noc.svg" alt="close" />
             </div>
             <input class="input" type="checkbox" id="toggle"/>
-            <ul class="drop-menu">
-                <li><a class="switch" id="switch" href="#">Modo Nocturno</a></li>
-                <li><a href="#">Favoritos</a></li>
-                <li><a href="#">Gifos</a></li>
-            </ul>
+            <ul class="drop-menu" id="drop-menu">
+                <li id=""><a id="switch" href="#">Modo Nocturno</a></li>
+                <li id=""><a href="#">Favoritos</a></li>
+                <li id=""><a href="#">Gifos</a></li>
+            </ul>    
         </nav> 
     </header>
     <main>
-        <section class="ppal">
-            <h1>Inspírate, busca, guarda y crea los mejores <span class="gifos">GIFOS</span></h1>
+        <section class="ppal" id="ppal">
+            <h1 id="title">Inspírate, busca, guarda y crea los mejores <span class="gifos">GIFOS</span></h1>
             <img  src="images/ilustra_header.svg" alt="image"/>
             <div class="busqueda">
                 <!--<form onsubmit="return false">-->
@@ -45,7 +45,7 @@
             <div class="resultado" id="resultado"></div>
             <button>Ver Más</button>
         </section>
-        <section class="trending">
+        <section class="trending" id="trending">
             <h2>Trending GIFOS</h2>
             <h3>Mira los ultimos GIFOS de nuestras comunidad.</h3>
             <img src="images/button-slider-left.svg" alt="izquierda" />
