@@ -86,19 +86,32 @@ nav .input{
 
 /* fin de menu hamburguesa */
 
-/* inicio modo noche */
+/* inicio modo noche mobile*/
 
 .dark {
     background-color: #37383C !important;
     color: #FFFFFF !important;
+
 }
 
 .darkTrending{
     background-color:#222326 !important;    
 }
 
-.darkTitle{
+.darkTitle {
     color: #FFFFFF !important;
+}
+
+.darkBackground {
+    background-color: #222326 !important;
+}
+
+.blackBackground {
+    background-color: black !important;
+}
+
+.darkBorder{
+    border: 1px solid black !important;
 }
 
 /*fin del modo noche*/
@@ -208,7 +221,7 @@ button {
     border-radius: 25px;
     background-color: white;
     position: relative;
-    display: none;
+    /*display: none;*/
 }
 
 footer{
@@ -275,6 +288,11 @@ footer h5 {
     .logo{ 
         margin-left: 26px;
     }
+
+    .crearGIFO{
+        height: 34px;
+        width: 34px;
+    }
     /*menu */
 
     li, a {
@@ -302,7 +320,9 @@ footer h5 {
 
     .drop-menu li {
         padding: .5em;
+        margin-bottom: 10px;
     }
+
     
     nav, .drop-menu{
         flex-direction: row;
@@ -320,14 +340,18 @@ footer h5 {
     
     /*fin del menu */
 
-    /* inicio modo noche */
+    /* inicio modo noche desktop */
 
     .dark {
         background-color: #37383C;
         color: #FFFFFF;
     }
 
-/*fin del modo noche*/
+    .blackBackground {
+        background-color: #37383C !important;
+    }
+
+    /*fin del modo noche*/
 
 
     .busqueda{
@@ -350,6 +374,7 @@ footer h5 {
     .trending{
         display: block;
         margin: auto;
+        position: relative;
     }
 
     .resulTrendingTag{
@@ -359,12 +384,47 @@ footer h5 {
         display: inline;
         margin: 5px;
     }
-}
 
-.ppal .busqueda .resultado {
-   
-}
+    footer{
+        margin: 20px;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+        height: 116px;
+        text-align: center;
+    }
 
-.trending{
-    position: relative;
+    footer .contenedorFooter {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        
+    }
+
+    footer h3{
+        font-size: 16px;
+        text-align: left;
+    }
+
+    footer .emoticones {
+        padding: 0px;
+    }
+    
+    footer .emoticones i{
+        width: 18px;
+        height: 28px;
+        padding-top: 0px;
+    
+    }
+
+    footer .emoticones{
+        margin-right: 150px;
+    }
+
+    footer h5 {
+        font-size: 16px;
+        text-align: right;
+    }
 }
