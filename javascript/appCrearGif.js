@@ -12,128 +12,154 @@ let constraintObj = {
 // facingMode: {exact: "user"}
 // facingMode: "environment"
 
-//handle older browsers that might implement getUserMedia in some way
-if (navigator.mediaDevices === undefined) {
-    navigator.mediaDevices = {};
-    /*navigator.mediaDevices.getUserMedia = function(constraintObj) {
-        let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        if (!getUserMedia) {
-            return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
-        }
-        return new Promise(function(resolve, reject) {
-            getUserMedia.call(navigator, constraintObj, resolve, reject);
-        });
-    }*/
-    
+let comenzar = document.getElementById('comenzar');
+comenzar.addEventListener('click', (ev)=>{
+    document.querySelector('#contenido').textContent = '¿Nos das acceso a tu cámara?';
+    document.querySelector('#contenido2').textContent = 'El acceso a tu camara será válido sólo';
+    document.querySelector('#contenido3').textContent = 'por el tiempo en el que estés creando el GIFO.';
 
- 
-}else{
-    navigator.mediaDevices.enumerateDevices()
-    .then(devices => {
-        devices.forEach(device=>{
-            console.log(device.kind.toUpperCase(), device.label);
-            //, device.deviceId
-        })
-    })
-    .catch(err=>{
-        console.log(err.name, err.message);
-    })
-}
+    //pido permiso al usuario
+    getStreamAndRecord();
 
-navigator.mediaDevices.getUserMedia(constraintObj)
-.then(function(mediaStreamObj) {
-    //connect the media stream to the first video element
-    let video = document.querySelector('video');
-    if ("srcObject" in video) {
-        video.srcObject = mediaStreamObj;
-    } else {
-        //old version
-        video.src = window.URL.createObjectURL(mediaStreamObj);
-    }
-    
-    video.onloadedmetadata = function(ev) {
-        //show in the video element what is being captured by the webcam
-        video.play();
-    };
-    
-    //add listeners for saving video/audio
-    let start = document.getElementById('btnStart');
-    let stop = document.getElementById('btnStop');
-    let vidSave = document.getElementById('vid2');
-    let mediaRecorder = new MediaRecorder(mediaStreamObj);
-    let chunks = [];
-    
-    start.addEventListener('click', (ev)=>{
-        //mediaRecorder.start();
-        getStreamAndRecord();
-        console.log(mediaRecorder.state);
-    })
-    stop.addEventListener('click', (ev)=>{
-        //mediaRecorder.stop();
-        stopCreatingGif()
-        console.log(mediaRecorder.state);
-    });
-    mediaRecorder.ondataavailable = function(ev) {
-        chunks.push(ev.data);
-    }
-    mediaRecorder.onstop = (ev)=>{
-        let blob = new Blob(chunks, { 'type' : 'video/mp4;' });
-        chunks = [];
-        let videoURL = window.URL.createObjectURL(blob);
-        vidSave.src = videoURL;
-    }
 })
-.catch(function(err) { 
-    console.log(err.name, err.message); 
-});
 
 
-const getStreamAndRecord = async () => {
-    await navigator.mediaDevices.getUserMedia({
+async function getStreamAndRecord() {
+    navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
-        height: { max: 480 }
+            height: { max: 370 }
         }
     })
-    .then(function(stream) {
-        video.srcObject = stream;
-        video.play()
-        
-        recorder = RecordRTC(mediaStreamObj, {
-            type: 'gif',
-            frameRate: 1,
-            quality: 10,
-            width: 360,
-            hidden: 240,
-            onGifRecordingStarted: function () {
-                console.log('started');
+        .then(async function (stream) {
+            console.log("comienza stream")
+            let video = document.querySelector("#vid1");
+            video.srcObject = stream;
+            video.play();
+            
+            let recorder = RecordRTC(stream, {
+                type: 'gif',
+                frameRate: 1,
+                quality: 10,
+                width: 360,
+                hidden: 240,
+                onGifRecordingStarted: function () {
+                    console.log('ha empezado la grabacion');
+                },
+            });
+
+            async function comenzarGrabar() {
+                console.log("grabando por 5 segundos...")
+                recorder.startRecording();
+
+                //grabo por 5 segundos
+                const sleep = m => new Promise(r => setTimeout(r, m));
+                await sleep(5000);
+
+                pararGrabacion();
             }
-        });
-    })
-    .catch((err) => console.log(err));
+
+            function pararGrabacion() {
+                recorder.stopRecording(function (grabacion) {
+                    console.log('ha parado la grabacion');
+                    document.querySelector("#vid1").src = grabacion;
+                    console.log("grabacion parada");
+                    previo = grabacion;
+                    vidOff();
+                });
+            }
+
+            function vidOff() {
+                //clearInterval(theDrawLoop);
+                //ExtensionData.vidStatus = 'off';
+                video.pause();
+                video.src = "";
+                video.srcObject.getTracks()[0].stop();
+                console.log("Video cam off");
+              }
+
+            function subirGif() {
+                /*
+                const form = new FormData();
+                form.append("api_key", "");
+                form.append("file", recorder.getBlob());
+
+                let blob = form.get("file");
+                enlaceURL = URL.createObjectURL(blob);
+                localStorage.setItem("url", enlaceURL);
+                function convertirGif() {
+                    const toDataURL = url => fetch(url)
+                        .then(response => response.blob())
+                        .then(blob => new Promise((resolve, reject) => {
+                            const reader = new FileReader()
+                            reader.onloadend = () => resolve(reader.result)
+                            reader.onerror = reject
+                            reader.readAsDataURL(blob)
+                        }))
+                    toDataURL(enlaceURL)
+                        .then(datosGif => {
+                            localStorage.setItem(enlaceURL, datosGif);
+                        })
+                }
+                convertirGif();
+                setTimeout(function upload() {
+                    fetch("https://upload.giphy.com/v1/gifs", {
+                        method: "POST",
+                        body: form,
+                        mode: "no-cors",
+                    });
+                }, 5000);*/
+            }
+            
+            let grabar = document.getElementById('grabar');
+            grabar.addEventListener('click', (ev)=>{
+                document.querySelector('#contenido').textContent = '';
+                document.querySelector('#contenido2').textContent = '';
+                document.querySelector('#contenido3').textContent = '';
+    
+                comenzarGrabar();
+            })
+
+
+
+
+/*
+
+            function cabioDeCaptura() {
+                const capturaVideo = document.querySelector("#capturaVideo");
+                capturaVideo.style.display = "none";
+                const previoVideo = document.getElementById("previoVideo");
+                previoVideo.style.display = "flex";
+            }
+
+            function cambioSubida() {
+                const previoVideo = document.querySelector("#previoVideo");
+                previoVideo.style.display = "none";
+                const subirVideo = document.getElementById("subirVideo");
+                subirVideo.style.display = "flex";
+                setTimeout(function chageToEnd() {
+                    document.querySelector("#resultados").src = previo;
+                    const subirVideo = document.querySelector("#subirVideo");
+                    subirVideo.style.display = "none";
+                    const opcionVideo = document.getElementById("opcionVideo");
+                    opcionVideo.style.display = "flex";
+                    const contenedorGridMyGif = document.getElementById("contenedorGridMyGif");
+                    contenedorGridMyGif.style.display = "flex";
+                }, 5000);
+            }
+            */
+        }); 
 }
 
-const stopCreatingGif = () => {
-	
-	recorder.stopRecording(() => {
-		blob = recorder.getBlob();
-		//$recordedGifo.src = URL.createObjectURL(blob);
 
-		form.append('file', recorder.getBlob(), 'myGif.gif');
-		console.log(form.get('file'));
-	});
-
-	
-	// acá debería limpiar y volver a setear el cronómetro
-	//clearInterval(timer);
-	//hours = '00';
-//	minutes = '00';
-	//seconds = '00';
-	//$timer.innerText = `${hours}:${minutes}:${seconds}`;
-};
 
     
-//fin de pedir permiso
+
+
+
+
+
+
 
 //modo noche
 const btnSwitch = document.querySelector('#switch');
@@ -141,6 +167,7 @@ const btnSwitch = document.querySelector('#switch');
 function modoNoche() {
     document.body.classList.toggle('dark');
     document.getElementById('nav').classList.toggle('dark');
+    document.getElementById('title').classList.toggle('darkTitle');
     document.getElementById('drop-menu').classList.toggle('dark');
     document.getElementById('switch').classList.toggle('darkTitle');
     document.getElementById('link1').classList.toggle('darkTitle');
