@@ -9,19 +9,20 @@
 </head>
 <body>
     <header>
-        <div class="line"></div>
+        <div class="line" id="lineTop"></div>
         <nav class="" id="nav">
             <div class="line1"></div>
             <div class=nav_wrapper>
-                <img class="logo" src="images/logo-mobile.svg" alt="logo"/> 
+                <a href="index.html"><img class="logo" src="images/logo-mobile.svg" alt="logo"/></a>
                 <img class="burger" src="images/burger.svg" alt="burger" />
                 <img class="cruz" src="images/Button-close-hover-modo-noc.svg" alt="close" />
             </div>
             <input class="input" type="checkbox" id="toggle"/>
             <ul class="drop-menu" id="drop-menu">
-                <li id=""><a id="switch" href="#">Modo Nocturno</a></li>
-                <li id=""><a href="#">Favoritos</a></li>
-                <li id=""><a href="#">Gifos</a></li>
+                <li><a id="switch" href="#">Modo Nocturno</a></li>
+                <li><a id="link1" href="#">Favoritos</a></li>
+                <li><a id="link2" href="#">Mis Gifos</a></li>
+                <li><a id="crear" href="/crearGif.html"><img class="crearGIFO" src="images/button-crear-gifo.svg" alt="crearGIFO"/></a></li>
             </ul>    
         </nav> 
     </header>
@@ -29,7 +30,7 @@
         <section class="ppal" id="ppal">
             <h1 id="title">Inspírate, busca, guarda y crea los mejores <span class="gifos">GIFOS</span></h1>
             <img  src="images/ilustra_header.svg" alt="image"/>
-            <div class="busqueda">
+            <div class="busqueda" id="busquedaBorde">
                 <!--<form onsubmit="return false">-->
                     <input type="text" id="busqueda" placeholder="Busca GIFOS y más" class="search">
                     <img src="images/icon-search.svg" alt="busqueda" onclick="search(this)"/>
@@ -38,7 +39,7 @@
                 
             </div>
             <div class="sugerencias">
-                <h3>Trending:</h3>
+                <h3 id="trending2">Trending:</h3>
                 <div class="resulTrendingTag" id="resulTrendingTag"></div>
             </div>
             <div class="resultado" id="resultadoTitulo"></div>
@@ -46,23 +47,25 @@
             <button>Ver Más</button>
         </section>
         <section class="trending" id="trending">
-            <h2>Trending GIFOS</h2>
-            <h3>Mira los ultimos GIFOS de nuestras comunidad.</h3>
+            <h2 id="trendingH2">Trending GIFOS</h2>
+            <h3 id="trendingH3">Mira los ultimos GIFOS de nuestras comunidad.</h3>
             <img src="images/button-slider-left.svg" alt="izquierda" />
             <div class="resulTrendingGif" id="resulTrendingGif"></div>
             <img src="images/Button-Slider-right.svg" alt="derecha" />
         </section>
     </main>
     <footer>
-        <h3>Compartir en</h3>
-        <div class="emoticones">
-            <a href="www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a> 
-            <a href="www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <div class="contenedorFooter">
+            <h3>Compartir en:</h3>
+            <div class="emoticones">
+                <a href="www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a> 
+                <a href="www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
         </div>
         <h5>© GIFOS 2020 All Rights Reserved.</h5>
     </footer>
-    <div class="line"></div>
+    <div class="line" id="lineBotton"></div>
     <script src="javascript/app.js" async></script>
 </body>
 </html>
