@@ -427,4 +427,24 @@ footer h5 {
         font-size: 16px;
         text-align: right;
     }
+
+    /*crear gif*/
+    .cuadro{
+        border: solid 1px #572EE5;
+        height: 390px;
+        width: 688px;
+    }
+
+    .etapas {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .numeroEtapa {
+        border: solid 1px #572EE5;
+        border-radius: 80%;
+        margin: 10px;
+    }
+    /* fin de crear gif */
 }
