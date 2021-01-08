@@ -1,19 +1,22 @@
 
+const apiKey = 'KBzPxkz8JbGW5o84HBSui0A3IJFindfN';
+
 //pedir permiso a la camara
-let constraintObj = { 
-    audio: false, 
-    video: { 
-        facingMode: "user", 
+let constraintObj = {
+    audio: false,
+    video: {
+        facingMode: "user",
         width: { min: 640, ideal: 1280, max: 1920 },
-        height: { min: 480, ideal: 720, max: 1080 } 
-    } 
-}; 
+        height: { min: 480, ideal: 720, max: 1080 }
+    }
+};
 // width: 1280, height: 720  -- preference only
 // facingMode: {exact: "user"}
 // facingMode: "environment"
 
+//primer boton Comenzar a pedir permisos
 let comenzar = document.getElementById('comenzar');
-comenzar.addEventListener('click', (ev)=>{
+comenzar.addEventListener('click', (ev) => {
     document.querySelector('#contenido').textContent = '¿Nos das acceso a tu cámara?';
     document.querySelector('#contenido2').textContent = 'El acceso a tu camara será válido sólo';
     document.querySelector('#contenido3').textContent = 'por el tiempo en el que estés creando el GIFO.';
@@ -36,7 +39,7 @@ async function getStreamAndRecord() {
             let video = document.querySelector("#vid1");
             video.srcObject = stream;
             video.play();
-            
+
             let recorder = RecordRTC(stream, {
                 type: 'gif',
                 frameRate: 1,
@@ -47,6 +50,7 @@ async function getStreamAndRecord() {
                     console.log('ha empezado la grabacion');
                 },
             });
+
 
             async function comenzarGrabar() {
                 console.log("grabando por 5 segundos...")
@@ -67,99 +71,84 @@ async function getStreamAndRecord() {
                     previo = grabacion;
                     vidOff();
                 });
-            }
 
-            function vidOff() {
-                //clearInterval(theDrawLoop);
-                //ExtensionData.vidStatus = 'off';
-                video.pause();
-                video.src = "";
-                video.srcObject.getTracks()[0].stop();
-                console.log("Video cam off");
-              }
 
-            function subirGif() {
-                /*
-                const form = new FormData();
-                form.append("api_key", "");
-                form.append("file", recorder.getBlob());
-
-                let blob = form.get("file");
-                enlaceURL = URL.createObjectURL(blob);
-                localStorage.setItem("url", enlaceURL);
-                function convertirGif() {
-                    const toDataURL = url => fetch(url)
-                        .then(response => response.blob())
-                        .then(blob => new Promise((resolve, reject) => {
-                            const reader = new FileReader()
-                            reader.onloadend = () => resolve(reader.result)
-                            reader.onerror = reject
-                            reader.readAsDataURL(blob)
-                        }))
-                    toDataURL(enlaceURL)
-                        .then(datosGif => {
-                            localStorage.setItem(enlaceURL, datosGif);
-                        })
+                function vidOff() {
+                    //clearInterval(theDrawLoop);
+                    //ExtensionData.vidStatus = 'off';
+                    video.pause();
+                    video.src = "";
+                    video.srcObject.getTracks()[0].stop();
+                    console.log("Video cam off");
+                    //subirGif();
                 }
-                convertirGif();
-                setTimeout(function upload() {
-                    fetch("https://upload.giphy.com/v1/gifs", {
-                        method: "POST",
-                        body: form,
-                        mode: "no-cors",
-                    });
-                }, 5000);*/
             }
+
+
+                async function subirGif() {
+
+                    let formm = new FormData();
+                    //formm.append("api_key", apiKey);
+                    //formm.append("file", recorder.getBlob());
+                    //form.append("source_post_url", "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4")
+                    //form.append("tags", "cat")
+                    formm.append('file', recorder.getBlob(), 'myGif.gif');
+                    
+                    for (var value of formm.values()) {
+                        console.log(value);
+                    }
+                    
+                    await fetch('https://upload.giphy.com/v1/gifs?api_key=KBzPxkz8JbGW5o84HBSui0A3IJFindfN', {
+                            method: "POST",
+                            body: formm,
+                            
+                            //mode: "no-cors"
+                    })
+                    .then(response => console.log(response))  // convert to json
+                    .then(res => console.log(res))    //print data to console
+                    .catch(err => console.log('Request Failed', err)); // Catch errors
+                    
+                    
+
+                }
             
+
+
+
+            //segundo boton Grabar
             let grabar = document.getElementById('grabar');
-            grabar.addEventListener('click', (ev)=>{
+            grabar.addEventListener('click', (ev) => {
                 document.querySelector('#contenido').textContent = '';
                 document.querySelector('#contenido2').textContent = '';
                 document.querySelector('#contenido3').textContent = '';
-    
+
                 comenzarGrabar();
+
             })
 
+            //tercer boton Finalizar 
+            let finalizar = document.getElementById('finalizar');
+            finalizar.addEventListener('click', (ev) => {
+                document.querySelector('#contenido').textContent = '';
+                document.querySelector('#contenido2').textContent = '';
+                document.querySelector('#contenido3').textContent = '';
+
+                pararGrabacion();
+            })
+
+            //tercer boton Finalizar 
+            let subirGifo = document.getElementById('subirGifo');
+            subirGifo.addEventListener('click', (ev) => {
+                document.querySelector('#contenido').textContent = '';
+                document.querySelector('#contenido2').textContent = '';
+                document.querySelector('#contenido3').textContent = '';
+
+                subirGif();
+            })
+        });
 
 
-
-/*
-
-            function cabioDeCaptura() {
-                const capturaVideo = document.querySelector("#capturaVideo");
-                capturaVideo.style.display = "none";
-                const previoVideo = document.getElementById("previoVideo");
-                previoVideo.style.display = "flex";
-            }
-
-            function cambioSubida() {
-                const previoVideo = document.querySelector("#previoVideo");
-                previoVideo.style.display = "none";
-                const subirVideo = document.getElementById("subirVideo");
-                subirVideo.style.display = "flex";
-                setTimeout(function chageToEnd() {
-                    document.querySelector("#resultados").src = previo;
-                    const subirVideo = document.querySelector("#subirVideo");
-                    subirVideo.style.display = "none";
-                    const opcionVideo = document.getElementById("opcionVideo");
-                    opcionVideo.style.display = "flex";
-                    const contenedorGridMyGif = document.getElementById("contenedorGridMyGif");
-                    contenedorGridMyGif.style.display = "flex";
-                }, 5000);
-            }
-            */
-        }); 
 }
-
-
-
-    
-
-
-
-
-
-
 
 //modo noche
 const btnSwitch = document.querySelector('#switch');
@@ -182,7 +171,7 @@ function modoNoche() {
 btnSwitch.addEventListener('click', () => {
     modoNoche();
 
-    if (typeof(Storage) !== "undefined") {
+    if (typeof (Storage) !== "undefined") {
         // LocalStorage disponible
         if (localStorage.getItem("modo") === 'true') {
             //debo sacar el modo noche
@@ -190,11 +179,11 @@ btnSwitch.addEventListener('click', () => {
             console.log("MODO NOCHE FALSE: " + localStorage.getItem("modo"));
             btnSwitch.textContent = 'Modo Nocturno';
 
-        }else{
+        } else {
             localStorage.setItem("modo", 'true');
-            console.log("MODO NOCHE TRUE: "+ localStorage.getItem("modo"));
-            
-            
+            console.log("MODO NOCHE TRUE: " + localStorage.getItem("modo"));
+
+
         }
     } else {
         // LocalStorage no soportado en este navegador
@@ -211,13 +200,13 @@ btnSwitch.addEventListener('click', () => {
     //}
 });
 
-if (typeof(Storage) !== "undefined") {
+if (typeof (Storage) !== "undefined") {
     // LocalStorage disponible
     if (localStorage.getItem("modo") === 'true') {
         console.log("modo noche seteado");
         // poner en modo noche
         modoNoche()
-}else{
+    } else {
         console.log("modo noche no seteado")
         //sacar modo noche
         localStorage.setItem("modo", 'false');
