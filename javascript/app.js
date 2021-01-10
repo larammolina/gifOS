@@ -84,14 +84,20 @@ searchTrendingTag();
 
 function  searchAuto(term) {  
     let sugerencia = term.value;
-    let url = `api.giphy.com/v1/gifs/search/tags?api_key=${apiKey}&q=${sugerencia}`;
+    let url = `https://api.giphy.com/v1/gifs/search/tags?api_key=${apiKey}&q=${sugerencia}`;
     console.log('url de consulta: ' + url);
     fetch(url).then (response => response.json())
         .then(content => {
-            let h6 = document.createElement('h6');
-            h6.innerHTML = content.data[0];
-            let resultado = document.getElementById('autocompletar');
-            resultado.appendChild(h6);
+            let i=0;
+            
+                for (i = 0; i < content.data.length; i++) {
+                
+                let li = document.createElement('li');
+                li.innerHTML = content.data[i].name;
+                let resultado = document.getElementById('autocompletar');
+                resultado.appendChild(li);
+                if (i>=3) break;
+                }
         })
         .catch(error => {
             console.log(error);

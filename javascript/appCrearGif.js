@@ -104,16 +104,14 @@ async function getStreamAndRecord() {
                             
                             //mode: "no-cors"
                     })
-                    .then(response => console.log(response))  // convert to json
-                    .then(res => console.log(res))    //print data to console
+                    .then((response) => response.json())  // convert to json
+                    .then((myGif) => {
+                        console.log(myGif.data.id);
+                    })    //print data to console
                     .catch(err => console.log('Request Failed', err)); // Catch errors
                     
-                    
-
                 }
             
-
-
 
             //segundo boton Grabar
             let grabar = document.getElementById('grabar');
