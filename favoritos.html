@@ -20,34 +20,25 @@
             <input class="input" type="checkbox" id="toggle"/>
             <ul class="drop-menu" id="drop-menu">
                 <li><a id="switch" href="#">Modo Nocturno</a></li>
-                <li><a id="link1" href="/favoritos.html">Favoritos</a></li>
+                <li><a id="link1" href="#">Favoritos</a></li>
                 <li><a id="link2" href="#">Mis Gifos</a></li>
-                <li><a id="crear" href="crearGif.html"><img class="crearGIFO" src="images/button-crear-gifo.svg" alt="crearGIFO"/></a></li>
+                <li><a id="crear" href="/crearGif.html"><img class="crearGIFO" src="images/button-crear-gifo.svg" alt="crearGIFO"/></a></li>
             </ul>    
         </nav> 
     </header>
     <main>
-        <section>
-            <img class="camara" src="images/camara.svg" alt="camara" />
+        <section class="favoritos" id="favoritos">
+            
         </section>
-        <section class="cuadro">
-            <h1 class="title" id="contenido">Aca podras crear tus propios <span class="gifos">GIFOS</span></h2>
-            <p id="contenido2">¡Crea tu GIFO en sólo 3 pasos!</p>
-            <p id='contenido3'>(sólo necesitas una cámara para grabar un video)</p>
-            <video id='vid1' class="vid1"></video>
-        </section> 
-        <section class="etapas">
-            <p class="numeroEtapa">1</p>
-            <p class="numeroEtapa">2</p>
-            <p class="numeroEtapa">3</p>
+        <section class="trending" id="trending">
+            <h2 id="trendingH2">Trending GIFOS</h2>
+            <h3 id="trendingH3">Mira los ultimos GIFOS de nuestras comunidad.</h3>
+            <div class="gridTrending">
+                <img src="images/button-slider-left.svg" alt="izquierda" />
+                <div class="resulTrendingGif" id="resulTrendingGif"></div>
+                <img src="images/Button-Slider-right.svg" alt="derecha" />
+            </div>
         </section>
-       
-        <section>
-            <button id="comenzar">Comenzar</button>
-            <button id="grabar">Grabar</button>
-            <button id="finalizar">Finalizar</button>
-            <button id="subirGifo">Subir GIFO</button>
-        </section>      
     </main>
     <footer>
         <div class="contenedorFooter">
@@ -61,7 +52,6 @@
         <h5>© GIFOS 2020 All Rights Reserved.</h5>
     </footer>
     <div class="line" id="lineBotton"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.6/RecordRTC.js"></script>
-    <script src="javascript/appCrearGif.js" async></script>
+    <script src="javascript/app.js" async></script>
 </body>
 </html>
