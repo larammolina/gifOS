@@ -116,6 +116,14 @@ nav .input{
 
 /*fin del modo noche*/
 
+.off{
+    display: none;
+}
+
+.on{
+    display: inline !important; 
+}
+
 .ppal h1{
     font-family: 'Montserrat', sans-serif;
     color: #572EE5;
@@ -144,6 +152,7 @@ nav .input{
     flex-direction: row;
     align-items: baseline;
     overflow: hidden;   
+    margin: auto; 
 }
 
 /*form {
@@ -164,6 +173,7 @@ nav .input{
     height: 20px;
     width: 20px;
     display: inline-flex;
+    margin-top: 0px;
     /*position: relative;*/
 }
 
@@ -221,6 +231,7 @@ button {
     border-radius: 25px;
     background-color: white;
     position: relative;
+    margin: auto;
     /*display: none;*/
 }
 
@@ -278,7 +289,7 @@ footer h5 {
 }
 
 /** desktop screen**/
-@media screen and (min-width: 1080px) and (max-width: 1920px) {
+@media screen and (min-width: 1080px) /*and (max-width: 1920px)*/ {
 
     header {
         background: #FFFFFF;
@@ -354,12 +365,20 @@ footer h5 {
     /*fin del modo noche*/
 
 
-    .busqueda{
+    .ppal .busqueda{
         width: 551px;
         display: flex;
         flex-direction: row;
         align-items: baseline;
-        overflow: hidden;   
+        overflow: hidden;
+        justify-content: space-around; 
+        margin: auto;  
+    }
+
+    .ppal {
+        display: flex;
+        justify-content: center; 
+        flex-direction: column;
     }
 
     .ppal h1 {
