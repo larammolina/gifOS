@@ -1,31 +1,66 @@
 
 //conecto la api giphy
 const apiKey = 'KBzPxkz8JbGW5o84HBSui0A3IJFindfN';
+let contador_verMas = 0;
+let campo_verMas;
 
-function search(gif){
+function search(gif, contador){
     //if(event.key === 'Enter') {
         //alert(ele.value);  
-        let url = `http://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=12&q=`;
+        let url = `http://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=50&q=`;
         //let gif_input = document.getElementById("search").value;
         let gif_input = gif.value;
+        campo_verMas = gif;
         let url2 = url + gif_input;
         console.log('url de consulta: ' + url2);
         fetch(url2).then (response => response.json())
             .then(content => {
                 //console.log('content.meta '+JSON.stringify(content.data[0]));
+                let titulo = document.getElementById('resultadoTitulo');
+                let h3 = document.createElement('h3');
+                h3.innerHTML = gif_input;
+                titulo.appendChild(h3);
+                document.getElementById('verMas').classList.toggle('on');
                 let i=0;
-                for (i = 0; i < 13; i++) {
-                    let img = document.createElement('img');
-                    console.log(content.data[i].images.fixed_height.url)
-                    img.src = content.data[i].images.fixed_height.url;
-                    img.alt = content.data[i].title;
-                    /*let h3 = document.createElement('h3');
-                    h3.innerHTML = content.data[i].title;
-                    let resultadoTitulo = document.getElementById('resultadoTitulo');
-                    resultadoTitulo.appendChild(h3);*/
-                    let resultado = document.getElementById('resultado');
-                    resultado.appendChild(img);
-            }   })
+                console.log("SIZE: "+content.data.length + " -- contador VERMAS: " + contador);
+                let limite = 12;
+                switch(contador){
+                    case 0:
+                        limite = 12;
+                        break;
+                    case 1:
+                        limite = 24;
+                        break;
+                    case 2:
+                        limite = 36;
+                        break;
+                    case 3:
+                        limite = 48;
+                        break;
+                    default: 
+                        limite = 12;
+                        break;
+                }
+                console.log("Limite "+limite)
+
+                //primero chequear que el content.data tenga el tamano limite
+                if(content.data.length >= limite){
+                    for (i = limite-12; i < limite; i++) {
+                        let img = document.createElement('img');
+                        console.log(content.data[i].images.fixed_height.url)
+                        img.src = content.data[i].images.fixed_height.url;
+                        img.alt = content.data[i].title;
+                        /*let h3 = document.createElement('h3');
+                        h3.innerHTML = content.data[i].title;
+                        let resultadoTitulo = document.getElementById('resultadoTitulo');
+                        resultadoTitulo.appendChild(h3);*/
+                        let resultado = document.getElementById('resultado');
+                        resultado.appendChild(img);
+                    } 
+            }
+                
+            })
+
                 
             .catch(error => {
                 console.log(error);
@@ -36,8 +71,22 @@ function search(gif){
 
 document.getElementById("busqueda").addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
-        search(this);
+        contador_verMas = 0;
+        search(this,0);
     }
+});
+
+document.getElementById('verMas').addEventListener('click', () => { 
+    
+        if(contador_verMas <= 2){
+            contador_verMas ++;
+            search(campo_verMas, contador_verMas);
+        }else{
+            //ocultador boton
+            
+        }
+    
+
 });
 
 function  searchTrending() {  
@@ -70,9 +119,11 @@ function  searchTrendingTag() {
             let i=0;
             for (i = 0; i < 4; i++) {
                 let h3 = document.createElement('h3');
-                h3.innerHTML = content.data[i];
+                h3.innerHTML = content.data[i]+' ';
                 let resultado = document.getElementById('resulTrendingTag');
                 resultado.appendChild(h3);
+
+                console.log(content.data[i]);
             }
         })
         .catch(error => {

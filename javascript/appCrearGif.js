@@ -154,7 +154,7 @@ const btnSwitch = document.querySelector('#switch');
 function modoNoche() {
     document.body.classList.toggle('dark');
     document.getElementById('nav').classList.toggle('dark');
-    document.getElementById('title').classList.toggle('darkTitle');
+    //document.getElementById('title').classList.toggle('darkTitle');
     document.getElementById('drop-menu').classList.toggle('dark');
     document.getElementById('switch').classList.toggle('darkTitle');
     document.getElementById('link1').classList.toggle('darkTitle');
