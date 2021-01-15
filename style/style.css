@@ -151,7 +151,7 @@ nav .input{
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    overflow: hidden;   
+    /*overflow: hidden;*/   
     margin: auto; 
 }
 
@@ -175,6 +175,10 @@ nav .input{
     display: inline-flex;
     margin-top: 0px;
     /*position: relative;*/
+}
+
+.busqueda .autocompletar {
+    display: block;
 }
 
 .trending{
