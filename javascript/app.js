@@ -139,16 +139,52 @@ function  searchAuto(term) {
     console.log('url de consulta: ' + url);
     fetch(url).then (response => response.json())
         .then(content => {
-            let i=0;
-            
-                for (i = 0; i < content.data.length; i++) {
-                
-                let li = document.createElement('li');
-                li.innerHTML = content.data[i].name;
+
                 let resultado = document.getElementById('autocompletar');
-                resultado.appendChild(li);
-                if (i>=3) break;
+                let resultado2 = document.getElementById('autocompletar2');
+                let resultado3 = document.getElementById('autocompletar3');
+                let resultado4 = document.getElementById('autocompletar4');
+                
+                switch (content.data.length) {
+                    case 0:
+                        resultado.innerHTML = '';
+                        resultado2.innerHTML = '';
+                        resultado3.innerHTML = '';
+                        resultado4.innerHTML = '';
+                        break;
+                    case 1:
+                        resultado.innerHTML = content.data[0].name;
+                        resultado2.innerHTML = '';
+                        resultado3.innerHTML = '';
+                        resultado4.innerHTML = '';
+                        break;
+                    case 2:
+                        resultado.innerHTML = content.data[0].name;
+                        resultado2.innerHTML = content.data[1].name;
+                        resultado3.innerHTML = '';
+                        resultado4.innerHTML = '';
+                        break;
+                    case 3: 
+                        resultado.innerHTML = content.data[0].name;
+                        resultado2.innerHTML = content.data[1].name;
+                        resultado3.innerHTML = content.data[2].name;;
+                        resultado4.innerHTML = '';
+                        break;
+                    case 4:
+                        resultado.innerHTML = content.data[0].name;
+                        resultado2.innerHTML = content.data[1].name;
+                        resultado3.innerHTML = content.data[2].name;
+                        resultado4.innerHTML = content.data[3].name;
+                        break;
+                    default:
+                        resultado.innerHTML = content.data[0].name;
+                        resultado2.innerHTML = content.data[1].name;
+                        resultado3.innerHTML = content.data[2].name;
+                        resultado4.innerHTML = content.data[3].name;
+                        break;
+
                 }
+                
         })
         .catch(error => {
             console.log(error);

@@ -68,7 +68,8 @@ async function getStreamAndRecord() {
                     console.log('ha parado la grabacion');
                     document.querySelector("#vid1").src = grabacion;
                     console.log("grabacion parada");
-                    previo = grabacion;
+                    
+                    mostrarVID();
                     vidOff();
                 });
 
@@ -81,9 +82,20 @@ async function getStreamAndRecord() {
                     video.srcObject.getTracks()[0].stop();
                     console.log("Video cam off");
                     //subirGif();
+                    
                 }
             }
 
+            let canvas = document.getElementById("showGif");
+
+            function mostrarVID(){    
+                //let context = canvas.getContext("2d");
+                //context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                canvas.src = URL.createObjectURL(recorder.getBlob())
+                canvas.classList.toggle("on")
+                canvas.style="display:block"
+                  
+            }
 
                 async function subirGif() {
 
