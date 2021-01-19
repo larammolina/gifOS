@@ -21,7 +21,7 @@
             <ul class="drop-menu" id="drop-menu">
                 <li><a id="switch" href="#">Modo Nocturno</a></li>
                 <li><a id="link1" href="favoritos.html">Favoritos</a></li>
-                <li><a id="link2" href="#">Mis Gifos</a></li>
+                <li><a id="link2" href="/misGifos.html">Mis Gifos</a></li>
                 <li><a id="crear" href="/crearGif.html"><img class="crearGIFO" src="images/button-crear-gifo.svg" alt="crearGIFO"/></a></li>
             </ul>    
         </nav> 
@@ -31,12 +31,16 @@
             <h1 id="title">Inspírate, busca, guarda y crea los mejores <span class="gifos">GIFOS</span></h1>
             <img  src="images/ilustra_header.svg" alt="image"/>
             <div class="busqueda" id="busquedaBorde">
+                <div class="box">
                     <input type="text" id="busqueda" placeholder="Busca GIFOS y más" class="search">
                     <img src="images/icon-search.svg" alt="busqueda" onclick="search(this)"/>
-                    <div class="autocompletar" id="autocompletar"></div>
-                    <div class="autocompletar" id="autocompletar2"></div>
-                    <div class="autocompletar" id="autocompletar3"></div>
-                    <div class="autocompletar" id="autocompletar4"></div>
+                </div>
+                <div>
+                    <li class="autocompletar" id="autocompletar"></li>
+                    <li class="autocompletar" id="autocompletar2"></li>
+                    <li class="autocompletar" id="autocompletar3"></li>
+                    <li class="autocompletar" id="autocompletar4"></li>
+                </div>
             </div>
             <div class="sugerencias">
                 <h3 id="trending2">Trending:</h3>
