@@ -111,7 +111,7 @@ nav .input{
 }
 
 .darkBorder{
-    border: 1px solid black !important;
+    border: 1px solid white !important;
 }
 
 /*fin del modo noche*/
@@ -164,16 +164,18 @@ nav .input{
     height: 25px;
 }*/
 
-.busqueda input{
+.busqueda .box input{
     border: none;
     text-align: left;
+    
+    
 }
 
 .busqueda img {
     height: 20px;
     width: 20px;
     display: inline-flex;
-    margin-top: 0px;
+    margin: 0px;
     /*position: relative;*/
 }
 
@@ -218,14 +220,20 @@ nav .input{
 }
 
 
-.trending h2, .trending h3, .trending .resulTrendingGif {
+.trending .resulTrendingGif {
     margin: 25px;
     padding: 10px;
+}
+
+.trending h2{
+    padding-top: 35px;
+    padding-bottom: 0px;
 }
 
 .trending h3 {
     font-family: 'Roboto', sans-serif;
     font-size: 100;
+    margin: 15px;
 }
 
 button {
@@ -290,6 +298,32 @@ footer h5 {
 
 /** screen**/
 @media screen and (min-width: 600px)  and (max-width: 1079px) {
+
+    .ppal .busqueda{
+        width: 551px;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        overflow: hidden;
+        justify-content: space-around; 
+        margin: auto;  
+    }
+
+    .ppal {
+        display: flex;
+        justify-content: center; 
+        flex-direction: column;
+    }
+
+    .ppal h1 {
+        font-size: 35px;
+        margin: 20px;
+    }
+
+    .busqueda img {
+        margin-top: 0px;
+    }
+
 }
 
 /** desktop screen**/
@@ -368,11 +402,17 @@ footer h5 {
 
     /*fin del modo noche*/
 
+    .busqueda input{
+        border: none;
+        text-align: left;
+        width: 210px;
+        padding-left: 30px;
+    }
 
     .ppal .busqueda{
         width: 551px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: baseline;
         overflow: hidden;
         justify-content: space-around; 
@@ -390,9 +430,25 @@ footer h5 {
         margin: 20px;
     }
 
-    .busqueda img {
-        margin-top: 0px;
+    .ppal img {
+        height: auto; 
+        width: auto; 
+        display: block;
+        margin: auto;
+        margin-top: 30px;
     }
+
+    .busqueda .box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; 
+        width: 525px;
+    }
+
+    .busqueda .box img {
+        margin: 0px;
+    }
+
 
     .resultado{
         display: grid;
