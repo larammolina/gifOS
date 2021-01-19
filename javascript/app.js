@@ -203,6 +203,7 @@ const btnSwitch = document.querySelector('#switch');
 function modoNoche() {
     document.body.classList.toggle('dark');
     document.getElementById('ppal').classList.toggle('dark');
+    document.getElementById('busqueda').classList.toggle('dark');
     document.getElementById('nav').classList.toggle('dark');
     document.getElementById('title').classList.toggle('darkTitle');
     document.getElementById('drop-menu').classList.toggle('dark');
