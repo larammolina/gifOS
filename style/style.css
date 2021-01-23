@@ -116,6 +116,15 @@ nav .input{
 
 /*fin del modo noche*/
 
+/* inicio del hover  */
+
+.ppal .resultado img:hover{
+    background-color: violet;
+    opacity: 0,5;
+}
+
+/* fin del hover */
+
 .off{
     display: none;
 }
@@ -124,14 +133,14 @@ nav .input{
     display: inline !important; 
 }
 
-.ppal h1{
+h1{
     font-family: 'Montserrat', sans-serif;
     color: #572EE5;
     font-size: 700;
     text-align: center;
 }
 
-.ppal h1 .gifos {
+h1 .gifos {
     color: #00F3BB;
 }
 .ppal img {
@@ -142,6 +151,23 @@ nav .input{
     margin-top: 30px;
 }
 
+/* .ppal .busqueda{
+    width: 551px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    overflow: hidden;
+    justify-content: space-around; 
+    margin: auto;  
+}
+
+.ppal {
+    display: flex;
+    justify-content: center; 
+    flex-direction: column;
+} */
+
+
 .busqueda{
     width: auto;
     height: auto;
@@ -149,11 +175,19 @@ nav .input{
     border-radius: 27px;   
     padding: 10px; 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: baseline;
     /*overflow: hidden;*/   
     margin: auto; 
+} 
+
+.busqueda .box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    width: 275px;
 }
+
 
 /*form {
     display: flex;
@@ -167,8 +201,6 @@ nav .input{
 .busqueda .box input{
     border: none;
     text-align: left;
-    
-    
 }
 
 .busqueda img {
@@ -293,6 +325,8 @@ footer h5 {
 .resulTrendingGif img {
     display: block;
     margin: 5px;
+    width: 243px;
+    height: 187px;
 
 }
 
@@ -300,13 +334,20 @@ footer h5 {
 @media screen and (min-width: 600px)  and (max-width: 1079px) {
 
     .ppal .busqueda{
-        width: 551px;
+        width: 373px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: baseline;
         overflow: hidden;
         justify-content: space-around; 
         margin: auto;  
+    }
+    
+    .busqueda .box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; 
+        width: 325px;
     }
 
     .ppal {
@@ -459,9 +500,17 @@ footer h5 {
         justify-items: center;
     }
 
-    .resultado img {
+    .resultado .tarjetas .resultadoGif {
         margin: 0px;
         padding: 0px;
+        width: 260px;
+        height: 200px;
+    }
+
+    .resultado img:hover{
+        background-color: violet;
+        opacity: 0,3;
+        
     }
     
     .sugerencias{
@@ -487,6 +536,86 @@ footer h5 {
         margin: 5px;
     }
 
+    /*
+    TARJETA
+
+    */
+
+    .tarjetas {
+        position: relative;  
+        width:100%;
+        height: 200px;
+        max-width:260px;
+        
+    }
+    .tarjetas:before {
+      content:"";
+      position:absolute;
+      width:100%;
+      height:100%;
+      top:0;left:0;right:0;
+      background-color:rgba(0,0,0,0);
+    }
+    .tarjetas:hover::before {
+      background-color:rgba(255, 0, 242, 0.5);
+      /* background-image: url(images/icon-fav-hover.svg); */
+    }
+    .tarjetas img{
+      display:block;
+      
+    }
+
+    /* .tarjetas div{
+        position: absolute;
+        top: 5%;
+        height: 2px;
+        width: 2px;
+
+    }
+
+    .tarjetas .div img {
+        position: relative;
+        top: 5%;
+    } */
+
+    .tarjetas h3 {
+      position: absolute;
+      font-size: small;
+      
+      /* transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%); */
+      opacity:0;
+    } 
+
+    .contenedorImagenes{
+        position: absolute;
+        transform: translate(1100%, -110%);
+        /* -ms-transform: translate(10%, 10%); */
+        z-index: -1;
+        display: block;
+    }
+
+    .tarjetas:hover h3, .tarjetas:hover .contenedorImagenes {   
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .contenedorImagenes .hoverImagenes {
+        height: 20px;
+        width: 20px;
+    }
+
+    /*
+    FIN TARJETA
+
+    */
+
+    .gridCrearGifo{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto;
+        column-gap: 5px;
+    }
 
     footer{
         margin: 20px;
@@ -538,16 +667,50 @@ footer h5 {
         width: 688px;
     }
 
+    .cuadroDeGif{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     .etapas {
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin: 10px;
+    }
+
+    .botones {
+        margin: 10px;
+    }
+
+    .lineCrear{
+        background-color:#572EE5;
+        height: 3px; 
+        width: 700px;
+    }
+
+    .gridCrearGifo{
+        padding-top: 30px;
     }
 
     .numeroEtapa {
         border: solid 1px #572EE5;
-        border-radius: 80%;
+        border-radius: 100%;
         margin: 10px;
+        padding:10px;
+    }
+
+    .imagenVideo {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .rolloPelicula {
+        display: flex;
+        align-items: flex-end;
     }
     /* fin de crear gif */
 }
