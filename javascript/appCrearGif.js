@@ -78,7 +78,7 @@ async function getStreamAndRecord() {
                     //clearInterval(theDrawLoop);
                     //ExtensionData.vidStatus = 'off';
                     video.pause();
-                    video.src = "";
+                    //video.src = "";
                     video.srcObject.getTracks()[0].stop();
                     console.log("Video cam off");
                     //subirGif();
@@ -119,6 +119,7 @@ async function getStreamAndRecord() {
                     .then((response) => response.json())  // convert to json
                     .then((myGif) => {
                         console.log(myGif.data.id);
+                        agregarGifo(myGif.data.id);
                     })    //print data to console
                     .catch(err => console.log('Request Failed', err)); // Catch errors
                     
@@ -158,6 +159,46 @@ async function getStreamAndRecord() {
         });
 
 
+}
+
+function agregarGifo(gifoID) {
+    if (typeof(Storage) !== "undefined") {
+        // LocalStorage disponible
+        if (localStorage.getItem("misGifos") !== null) {
+            console.log("Guardando GIFO localStorage")
+            let gifos = JSON.parse(localStorage.getItem('misGifos'));
+            console.log(gifos);
+
+
+            //chequeo que el ID no exite en el array
+            //agrego al ID al principio.
+            //Lo guardo.
+
+            if(gifos.indexOf(gifoID) == -1){
+                // como no existe el ID lo agrego
+                gifos.push(gifoID);
+            }
+
+            console.log("nuevo Array: "+ gifos);
+
+            localStorage.setItem('misGifos', JSON.stringify(gifos));
+            
+            console.log("Guardados")
+                    
+        }else{
+            console.log('no existe mis gifos -- creando');
+            let gifos = [gifoID];
+            console.log("nuevo Array: "+ gifos);
+
+            localStorage.setItem('misGifos', JSON.stringify(gifos));
+            
+            console.log("Guardados")
+        
+        }
+    } else {
+        // LocalStorage no soportado en este navegador
+        //console.log("NO SOPORTADO")
+    }
 }
 
 //modo noche

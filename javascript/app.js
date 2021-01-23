@@ -4,11 +4,123 @@ const apiKey = 'KBzPxkz8JbGW5o84HBSui0A3IJFindfN';
 let contador_verMas = 0;
 let campo_verMas;
 
+function addFavorito(tarjeta) {
+    let imgID = 't'+tarjeta.id
+    let imSRC = document.getElementById(imgID).src
+    console.log("favorito: "+imSRC)
+
+    //elimino la barra que aparece al final
+    if(imSRC.charAt(imSRC.length-1) === '/'){
+        console.log("debo elimicar la barra final")
+        imSRC = imSRC.slice(0,-1);
+        console.log(imSRC)
+    }
+
+    
+    agregarFavGifo(imSRC, tarjeta.id);
+}
+
+function agregarFavGifo(gifoSRC, tarjetaID) {
+    if (typeof(Storage) !== "undefined") {
+        // LocalStorage disponible
+        
+        if (localStorage.getItem("favGifos") !== null) {
+            console.log("Guardando GIFO localStorage")
+            let gifos = JSON.parse(localStorage.getItem('favGifos'));
+            console.log(gifos);
+
+            //chequeo que el ID no exite en el array
+            //agrego al ID al principio.
+            //Lo guardo.
+
+            console.log('EXISTE?? '+gifos.indexOf(gifoSRC))
+            if(gifos.indexOf(gifoSRC) == -1){
+                // como no existe el ID lo agrego
+                gifos.push(gifoSRC);
+                document.getElementById(tarjetaID).src = 'images/icon-fav-active.svg'
+            }else{
+                //como existe lo elimino
+                let index =  gifos.indexOf(gifoSRC);
+                gifos.splice(index, 1);
+                document.getElementById(tarjetaID).src = 'images/icon-fav-hover.svg'
+            }
+
+            console.log("nuevo Array: "+ gifos);
+
+            localStorage.setItem('favGifos', JSON.stringify(gifos));
+            
+            
+            console.log("Guardados")
+                    
+        }else{
+            console.log('no existe mis gifos -- creando');
+            let gifos = [gifoSRC];
+            console.log("nuevo Array: "+ gifos);
+
+            localStorage.setItem('favGifos', JSON.stringify(gifos));
+            document.getElementById(tarjetaID).src = 'images/icon-fav-active.svg'
+            
+            console.log("Guardados")
+        
+        }
+    } else {
+        // LocalStorage no soportado en este navegador
+        //console.log("NO SOPORTADO")
+    }
+}
+
+function checkFavGif(gifSRC){
+    console.log("verificando url "+gifSRC)
+    //elimino la barra que aparece al final
+    if(gifSRC.charAt(gifSRC.length-1) === '/'){
+        console.log("debo elimicar la barra final")
+        gifSRC = gifSRC.slice(0,-1);
+        console.log(gifSRC)
+    }
+    if (typeof(Storage) !== "undefined") {
+        // LocalStorage disponible
+        
+        if (localStorage.getItem("favGifos") !== null) {
+            let gifos = JSON.parse(localStorage.getItem('favGifos'));
+            
+            console.log("verificando url "+gifos.indexOf(gifSRC))
+            if(gifos.indexOf(gifSRC) != -1){
+                return true
+            }
+            return false
+                    
+        }else{
+            // console.log('no existe mis gifos -- creando');
+            return false;
+        
+        }
+    } else {
+        // LocalStorage no soportado en este navegador
+        //console.log("NO SOPORTADO")
+        return false;
+    }
+}
+
+function download(tarjeta){
+    let imgID = 't'+tarjeta.id
+    let imSRC = document.getElementById(imgID).src
+    window.alert('URL: '+imSRC)
+    console.log("url: "+imSRC)
+}
+
+function maximizar(tarjeta){
+    let imgID = 't'+tarjeta.id
+    let imSRC = document.getElementById(imgID).src
+    console.log("maximizar: "+imSRC)
+}
+
+
+
+
 function search(gif, contador){
     //if(event.key === 'Enter') {
         //alert(ele.value);  
         let url = `http://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=50&q=`;
-        //let gif_input = document.getElementById("search").value;
         let gif_input = gif.value;
         campo_verMas = gif;
         let url2 = url + gif_input;
@@ -44,20 +156,31 @@ function search(gif, contador){
                 console.log("Limite "+limite)
 
                 //primero chequear que el content.data tenga el tamano limite
+                var contenedor = document.getElementById("resultado");
+                contenedor.innerHTML = "";
                 if(content.data.length >= limite){
                     for (i = limite-12; i < limite; i++) {
-                        let img = document.createElement('img');
-                        console.log(content.data[i].images.fixed_height.url)
-                        img.src = content.data[i].images.fixed_height.url;
-                        img.alt = content.data[i].title;
-                        /*let h3 = document.createElement('h3');
-                        h3.innerHTML = content.data[i].title;
-                        let resultadoTitulo = document.getElementById('resultadoTitulo');
-                        resultadoTitulo.appendChild(h3);*/
-                        let resultado = document.getElementById('resultado');
-                        resultado.appendChild(img);
+                        contenedor.innerHTML += 
+                        "<div class='tarjetas'> " + 
+                        
+                        "<h3>"+content.data[i].title+"</h3>" +
+                        
+                        "<img class='resultadoGif' id='tarjet" +i+"' src="+content.data[i].images.fixed_height.url+"/>" +
+
+                        "<div class='contenedorImagenes'>" +
+                            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-fav-hover.svg' alt='favoritos' onclick='addFavorito(this)'/> "+
+                            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-link-normal.svg' alt='' onclick='download(this)'/>"+
+                            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-max-normal.svg' alt='maximizar' onclick='maximizar(this)'/></div>" +  
+                        
+                        "</div>"
+
+                        let existe = checkFavGif(document.getElementById('tarjet'+i).src);
+                        console.log(existe)
+                        if(existe)  document.getElementById('arjet'+i).src = 'images/icon-fav-active.svg'
+                        else document.getElementById('arjet'+i).src = 'images/icon-fav-hover.svg'
+
                     } 
-            }
+                }
                 
             })
 
@@ -65,7 +188,6 @@ function search(gif, contador){
             .catch(error => {
                 console.log(error);
             })      
-    //}
         
 }
 
@@ -197,6 +319,53 @@ document.getElementById("busqueda").addEventListener('keyup', function (e) {
     
 });
 
+//sugerencias de busquedas 
+
+let sugerencia1 = document.getElementById("autocompletar");
+let sugerencia2 = document.getElementById("autocompletar2");
+let sugerencia3 = document.getElementById("autocompletar3");
+let sugerencia4 = document.getElementById("autocompletar4");
+
+let busqueda = document.getElementById("busqueda");
+
+sugerencia1.addEventListener('click', () => {
+    busqueda.value = sugerencia1.innerText;
+    search(busqueda, contador_verMas);
+    sugerencia1.innerHTML = '';
+    sugerencia2.innerHTML = '';
+    sugerencia3.innerHTML = '';
+    sugerencia4.innerHTML = '';
+});
+
+sugerencia2.addEventListener('click', () => {
+    busqueda.value = sugerencia2.innerText;
+    search(busqueda, contador_verMas);
+    sugerencia1.innerHTML = '';
+    sugerencia2.innerHTML = '';
+    sugerencia3.innerHTML = '';
+    sugerencia4.innerHTML = '';
+});
+
+sugerencia3.addEventListener('click', () => {
+    busqueda.value = sugerencia3.innerText;
+    search(busqueda, contador_verMas);
+    sugerencia1.innerHTML = '';
+    sugerencia2.innerHTML = '';
+    sugerencia3.innerHTML = '';
+    sugerencia4.innerHTML = '';
+});
+
+sugerencia4.addEventListener('click', () => {
+    busqueda.value = sugerencia4.innerText;
+    search(busqueda, contador_verMas);
+    sugerencia1.innerHTML = '';
+    sugerencia2.innerHTML = '';
+    sugerencia3.innerHTML = '';
+    sugerencia4.innerHTML = '';
+});
+
+//fin de sugerencias de busquedas
+
 //modo noche
 const btnSwitch = document.querySelector('#switch');
 
@@ -244,15 +413,6 @@ btnSwitch.addEventListener('click', () => {
         // LocalStorage no soportado en este navegador
         //console.log("NO SOPORTADO")
     }
-
-    //guardo modo en localstorage
-
-    //consulto el modo actual
-    //if(localStorage.getItem('dark-mode') === "true"){
-    //    document.body.classList.add('dark');
-    //} else {
-    //    document.body.classList.remove('dark');
-    //}
 });
 
 if (typeof(Storage) !== "undefined") {
