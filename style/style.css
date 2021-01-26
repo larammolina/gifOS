@@ -7,11 +7,160 @@
     padding: 0px;
 }
 
+.crearGIFO {
+    display: none;
+}
+
 body {
     margin: 1px;
     background-color: white;
     transition: .3s ease all;
 }
+
+.corazonFavoritos {
+    display: block;
+    margin: auto;
+}
+
+.favoritos, .misGifos {
+    padding-top: 20px;
+}
+
+.apagado{
+    display: none;
+}
+
+.max{
+    width: auto;
+    height: auto;
+    background-color: white;
+    display: flex !important;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 9999;
+    margin: auto;
+}
+
+.max .cruzGif{
+    display: flex;
+    align-self: flex-end !important;
+    margin: 0px;
+}
+
+.max .img {
+    width: 100%;
+    height: 100%;
+}
+
+.cuerpo{
+    display: none;
+}
+
+.error .errorFav {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+} 
+
+.resultado{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-items: center;
+}
+
+/*
+    TARJETA
+
+    */
+
+    .tarjetas {
+        position: relative;  
+        width: auto;
+        height: auto; 
+
+    }
+
+    .tarjetas .resultadoGif {
+        padding: 5px;
+        margin: auto;
+    }
+
+    .tarjetas:before {
+      content:"";
+      position:absolute;
+      width:100%;
+      height:100%;
+      top:0;left:0;right:0;
+      background-color:rgba(0,0,0,0);
+    }
+
+    .tarjetas:hover::before {
+      background-color:rgba(255, 0, 242, 0.5);
+      background-image: url(images/icon-fav-hover.svg); */
+      display: none; 
+    } */
+
+    .tarjetas img{
+      display:block;
+    }
+
+
+    .tarjetas h3 {
+      position: absolute;
+      font-size: small;
+      display: none;
+      
+      /* transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%); */
+      opacity:0;
+    } 
+
+    .contenedorImagenes{
+        position: absolute;
+        transform: translate(1100%, -110%);
+        /* -ms-transform: translate(10%, 10%); */
+        z-index: -1;
+        display: none;
+    }
+
+    .resulTrendingGif .contenedorImagenes{
+        position: absolute;
+        transform: translate(700%, -100%);
+        z-index: -1;
+        display: none;
+    }
+
+    .resultado .contenedorImagenesCrear{
+        position: absolute;
+        transform: translate(1140%, -110%);
+        z-index: -1;
+        display: none;
+    } 
+
+    .tarjetas:hover h3, .tarjetas:hover .contenedorImagenes, .tarjetas:hover .contenedorImagenesCrear {   
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .contenedorImagenesCrear .hoverImagenes{
+        height: 20px;
+        width: 20px;
+    }
+
+    .contenedorImagenes .hoverImagenes {
+        height: 20px;
+        width: 20px;
+    }
+
+    /*
+    FIN TARJETA
+
+    */
+
 
 /* inicio menu hamburguesa */
 
@@ -125,6 +274,13 @@ nav .input{
 
 /* fin del hover */
 
+.errorFav{
+    font-family: 'Montserrat', sans-serif;
+    color: #50E3C2;
+    font-size: 300;
+    text-align: center;
+}
+
 .off{
     display: none;
 }
@@ -151,22 +307,6 @@ h1 .gifos {
     margin-top: 30px;
 }
 
-/* .ppal .busqueda{
-    width: 551px;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    overflow: hidden;
-    justify-content: space-around; 
-    margin: auto;  
-}
-
-.ppal {
-    display: flex;
-    justify-content: center; 
-    flex-direction: column;
-} */
-
 
 .busqueda{
     width: auto;
@@ -187,16 +327,6 @@ h1 .gifos {
     justify-content: space-between; 
     width: 275px;
 }
-
-
-/*form {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    overflow: hidden;
-    width: 150px;
-    height: 25px;
-}*/
 
 .busqueda .box input{
     border: none;
@@ -233,6 +363,12 @@ h1 .gifos {
 .sugerencias .resulTrendingTag  {
     font-size: 10px;
     display: inline;
+}
+
+.resulTrendingTag h3:hover {
+    color: #572EE5;
+    text-decoration: underline;
+    text-decoration-color: #00F3BB;
 }
 
 .resulTrendingTag h3{
@@ -276,6 +412,7 @@ button {
     background-color: white;
     position: relative;
     margin: auto;
+    
     /*display: none;*/
 }
 
@@ -531,6 +668,14 @@ footer h5 {
         align-items: center;
         justify-content: center; 
     }
+
+    .resulTrendingGif {
+        display: flex;
+        justify-content: row;
+        align-items: center;
+    }
+
+
     .resulTrendingGif img {
         display: inline;
         margin: 5px;
@@ -562,21 +707,8 @@ footer h5 {
     }
     .tarjetas img{
       display:block;
-      
     }
 
-    /* .tarjetas div{
-        position: absolute;
-        top: 5%;
-        height: 2px;
-        width: 2px;
-
-    }
-
-    .tarjetas .div img {
-        position: relative;
-        top: 5%;
-    } */
 
     .tarjetas h3 {
       position: absolute;
@@ -595,9 +727,28 @@ footer h5 {
         display: block;
     }
 
-    .tarjetas:hover h3, .tarjetas:hover .contenedorImagenes {   
+    .resulTrendingGif .contenedorImagenes{
+        position: absolute;
+        transform: translate(700%, -100%);
+        z-index: -1;
+        display: block;
+    }
+
+    .resultado .contenedorImagenesCrear{
+        position: absolute;
+        transform: translate(1140%, -110%);
+        z-index: -1;
+        display: inline;
+    } 
+
+    .tarjetas:hover h3, .tarjetas:hover .contenedorImagenes, .tarjetas:hover .contenedorImagenesCrear {   
       opacity: 1;
       z-index: 1;
+    }
+
+    .contenedorImagenesCrear .hoverImagenes{
+        height: 20px;
+        width: 20px;
     }
 
     .contenedorImagenes .hoverImagenes {
@@ -610,11 +761,66 @@ footer h5 {
 
     */
 
+    .apagado{
+        display: none;
+    }
+
+    .max{
+        width: 1200px;
+        height: 600px;
+        background-color: white;
+        display: flex !important;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 9999;
+        margin: auto;
+    }
+
+    .max .cruzGif{
+        display: flex;
+        align-self: flex-end !important;
+        margin-top: 120px;
+    }
+
+    .max .img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .cuerpo{
+        display: none;
+    }
+
+    .error .errorFav {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 30px;
+    } 
+
+
+.crearGIFO {
+    display: block;
+}
+
     .gridCrearGifo{
         display: grid;
         grid-template-columns: auto auto auto;
         grid-template-rows: auto;
         column-gap: 5px;
+    }
+
+    .cuadro{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .cuadro .p{
+        font-family: 'Roboto', sans-serif;
     }
 
     footer{
@@ -678,7 +884,7 @@ footer h5 {
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin: 10px;
+        margin: 0px;
     }
 
     .botones {
