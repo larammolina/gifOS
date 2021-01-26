@@ -101,20 +101,51 @@ function checkFavGif(gifSRC){
     }
 }
 
-function download(tarjeta){
-    let imgID = 't'+tarjeta.id
-    let imSRC = document.getElementById(imgID).src
-    window.alert('URL: '+imSRC)
-    console.log("url: "+imSRC)
+// function download(tarjeta){
+//     let imgID = 't'+tarjeta.id
+//     let imSRC = document.getElementById(imgID).src
+//     window.alert('URL: '+imSRC)
+//     console.log("url: "+imSRC)
+// }
+
+// function maximizar(tarjeta){
+//     let imgID = 't'+tarjeta.id
+//     let imSRC = document.getElementById(imgID).src
+//     console.log("maximizar: "+imSRC)
+
+//     let tarjetaMax = document.getElementById('max');
+//     let cuerpo = document.getElementById('cuerpo');
+//     let max_gif = document.getElementById('max_gif');
+//     //cargar src en img
+
+//     cuerpo.classList.add('off');
+//     cuerpo.classList.remove('on');
+//     tarjetaMax.classList.add('max');
+//     max_gif.classList.add('on');
+//     max_gif.src = imSRC;
+
+// }
+
+// document.getElementById('cerrar').addEventListener('click', () => {
+//     let tarjetaMax = document.getElementById('max');
+//     let cuerpo = document.getElementById('cuerpo');
+//     let max_gif = document.getElementById('max_gif');
+
+//     max_gif.classList.remove('max_gif');
+//     tarjetaMax.classList.remove('max');
+//     cuerpo.classList.add('on');
+//     tarjetaMax.classList.add('off');
+//     max_gif.classList.add('off');
+// })
+
+function errorBusqueda (){
+    var contenedor = document.getElementById("error");
+    contenedor.innerHTML += 
+        "<div class='errorFav'>"+
+        "<img src='images/icon-busqueda-sin-resultado.svg' alt='error' /> "+
+        "<h3> Intenta con otra búsqueda!</h3>"
+        "</div>"
 }
-
-function maximizar(tarjeta){
-    let imgID = 't'+tarjeta.id
-    let imSRC = document.getElementById(imgID).src
-    console.log("maximizar: "+imSRC)
-}
-
-
 
 
 function search(gif, contador){
@@ -127,16 +158,25 @@ function search(gif, contador){
         console.log('url de consulta: ' + url2);
         fetch(url2).then (response => response.json())
             .then(content => {
+
                 //console.log('content.meta '+JSON.stringify(content.data[0]));
                 let titulo = document.getElementById('resultadoTitulo');
-                let h3 = document.createElement('h3');
-                h3.innerHTML = gif_input;
-                titulo.appendChild(h3);
-                document.getElementById('verMas').classList.toggle('on');
-                let i=0;
-                console.log("SIZE: "+content.data.length + " -- contador VERMAS: " + contador);
-                let limite = 12;
-                switch(contador){
+                titulo.innerText = gif_input;
+                if(contador_verMas == 0) {
+                    // let h3 = document.createElement('h3');
+                    // h3.innerHTML = gif_input;
+                    // h3.id = 'h3-titulo'
+                    // titulo.appendChild(h3);
+                }
+                if(content.data.length===0) {
+                    errorBusqueda();
+                } else {
+                    document.getElementById('verMas').classList.remove('off');
+                    document.getElementById('verMas').classList.add('on');
+                    let i=0;
+                    console.log("SIZE: "+content.data.length + " -- contador VERMAS: " + contador);
+                    let limite = 12;
+                    switch(contador){
                     case 0:
                         limite = 12;
                         break;
@@ -152,48 +192,62 @@ function search(gif, contador){
                     default: 
                         limite = 12;
                         break;
-                }
-                console.log("Limite "+limite)
+                    }
+                    console.log("Limite "+limite)
 
-                //primero chequear que el content.data tenga el tamano limite
-                var contenedor = document.getElementById("resultado");
-                contenedor.innerHTML = "";
-                if(content.data.length >= limite){
-                    for (i = limite-12; i < limite; i++) {
-                        contenedor.innerHTML += 
+                    //primero chequear que el content.data tenga el tamano limite
+                    var contenedor = document.getElementById("resultado");
+                    // contenedor.innerHTML = "";
+                    if(content.data.length >= limite){
+                        for (i = limite-12; i < limite; i++) {
+                            
+                            contenedor.innerHTML += 
                         "<div class='tarjetas'> " + 
                         
                         "<h3>"+content.data[i].title+"</h3>" +
                         
-                        "<img class='resultadoGif' id='tarjet" +i+"' src="+content.data[i].images.fixed_height.url+"/>" +
+                        "<img class='resultadoGif' onclick='maximizarMobile(this)' id='tarjet" +i+"' src="+content.data[i].images.downsized.url+"/>" +
 
                         "<div class='contenedorImagenes'>" +
                             "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-fav-hover.svg' alt='favoritos' onclick='addFavorito(this)'/> "+
-                            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-link-normal.svg' alt='' onclick='download(this)'/>"+
+                            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-download.svg' alt='download' onclick='download(this)'/>"+
                             "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-max-normal.svg' alt='maximizar' onclick='maximizar(this)'/></div>" +  
                         
                         "</div>"
+                            
+                            
 
-                        let existe = checkFavGif(document.getElementById('tarjet'+i).src);
-                        console.log(existe)
-                        if(existe)  document.getElementById('arjet'+i).src = 'images/icon-fav-active.svg'
-                        else document.getElementById('arjet'+i).src = 'images/icon-fav-hover.svg'
+                            let existe = checkFavGif(document.getElementById('tarjet'+i).src);
+                            console.log(existe)
+                            if(existe)  document.getElementById('arjet'+i).src = 'images/icon-fav-active.svg'
+                            else document.getElementById('arjet'+i).src = 'images/icon-fav-hover.svg'
 
-                    } 
-                }
-                
+                        }
+                        if(contador_verMas >= 3){
+                            document.getElementById('verMas').classList.add('off');
+                        document.getElementById('verMas').classList.remove('on');
+                        } 
+                    }
+                } 
             })
-
                 
             .catch(error => {
-                console.log(error);
+                console.log(error);  
             })      
         
 }
 
+function resetLayout(){
+    contador_verMas = 0;
+    let titulo = document.getElementById('resultadoTitulo');
+    var contenedor = document.getElementById("resultado");
+    titulo.innerText = '';
+    contenedor.innerHTML = "";
+}
+
 document.getElementById("busqueda").addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
-        contador_verMas = 0;
+        resetLayout()
         search(this,0);
     }
 });
@@ -205,55 +259,16 @@ document.getElementById('verMas').addEventListener('click', () => {
             search(campo_verMas, contador_verMas);
         }else{
             //ocultador boton
-            
+            document.getElementById('verMas').style.display = "none";
         }
-    
-
 });
 
-function  searchTrending() {  
-    let url = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=9&rating=g`;
-    console.log('url de consulta: ' + url);
-    fetch(url).then (response => response.json())
-        .then(content => {
-            let i=0;
-            for (i = 0; i < 3; i++){
-                let img = document.createElement('img');
-                console.log(content.data[i].images.fixed_height.url)
-                img.src = content.data[i].images.fixed_height.url;
-                img.alt = content.data[i].title;
-                let resultado = document.getElementById('resulTrendingGif');
-                resultado.appendChild(img);
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        })      
+function searchTag(tag){
+    resetLayout()
+    busqueda.value = tag.innerText;
+    search(busqueda, 0);
 }
 
-searchTrending();
-
-function  searchTrendingTag() {  
-    let url = `https://api.giphy.com/v1/trending/searches?api_key=${apiKey}`;
-    console.log('url de consulta: ' + url);
-    fetch(url).then (response => response.json())
-        .then(content => {
-            let i=0;
-            for (i = 0; i < 4; i++) {
-                let h3 = document.createElement('h3');
-                h3.innerHTML = content.data[i]+' ';
-                let resultado = document.getElementById('resulTrendingTag');
-                resultado.appendChild(h3);
-
-                console.log(content.data[i]);
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        })      
-}
-
-searchTrendingTag();
 
 function  searchAuto(term) {  
     let sugerencia = term.value;
@@ -329,8 +344,9 @@ let sugerencia4 = document.getElementById("autocompletar4");
 let busqueda = document.getElementById("busqueda");
 
 sugerencia1.addEventListener('click', () => {
+    resetLayout()
     busqueda.value = sugerencia1.innerText;
-    search(busqueda, contador_verMas);
+    search(busqueda, 0);
     sugerencia1.innerHTML = '';
     sugerencia2.innerHTML = '';
     sugerencia3.innerHTML = '';
@@ -338,8 +354,9 @@ sugerencia1.addEventListener('click', () => {
 });
 
 sugerencia2.addEventListener('click', () => {
+    resetLayout()
     busqueda.value = sugerencia2.innerText;
-    search(busqueda, contador_verMas);
+    search(busqueda, 0);
     sugerencia1.innerHTML = '';
     sugerencia2.innerHTML = '';
     sugerencia3.innerHTML = '';
@@ -347,8 +364,9 @@ sugerencia2.addEventListener('click', () => {
 });
 
 sugerencia3.addEventListener('click', () => {
+    resetLayout()
     busqueda.value = sugerencia3.innerText;
-    search(busqueda, contador_verMas);
+    search(busqueda, 0);
     sugerencia1.innerHTML = '';
     sugerencia2.innerHTML = '';
     sugerencia3.innerHTML = '';
@@ -356,8 +374,9 @@ sugerencia3.addEventListener('click', () => {
 });
 
 sugerencia4.addEventListener('click', () => {
+    resetLayout()
     busqueda.value = sugerencia4.innerText;
-    search(busqueda, contador_verMas);
+    search(busqueda, 0);
     sugerencia1.innerHTML = '';
     sugerencia2.innerHTML = '';
     sugerencia3.innerHTML = '';
@@ -365,6 +384,39 @@ sugerencia4.addEventListener('click', () => {
 });
 
 //fin de sugerencias de busquedas
+
+function  searchTrendingTag() {  
+    let url = `https://api.giphy.com/v1/trending/searches?api_key=KBzPxkz8JbGW5o84HBSui0A3IJFindfN`;
+    console.log('url de consulta: ' + url);
+    fetch(url).then (response => response.json())
+        .then(content => {
+            let i=0;
+            let resultado = document.getElementById('resulTrendingTag');
+            
+            for (i = 0; i < 4; i++) {
+                // let h3 = document.createElement('h3');
+                // h3.innerHTML = content.data[i]+' ';
+                // h3.id = 'tag'+i;
+                // let busqueda = getElementById()
+                  
+             //busqueda.value = content.data[i];
+                resultado.innerHTML+=
+                "<h3 id='trendingTag"+i+"' onclick='searchTag(this)' >" + 
+                content.data[i]+
+                ".   </h3>"
+                // resultado.appendChild(h3);
+                //console.log(content.data[i]);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+          
+}
+
+searchTrendingTag();
+
+
 
 //modo noche
 const btnSwitch = document.querySelector('#switch');
@@ -432,3 +484,5 @@ if (typeof(Storage) !== "undefined") {
     //console.log("NO SOPORTADO")
 }
 //fin del modo noche
+
+

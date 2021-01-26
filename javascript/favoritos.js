@@ -1,4 +1,5 @@
 
+const apiKey = 'KBzPxkz8JbGW5o84HBSui0A3IJFindfN';
 //favoritos
 
 // localStorage.clear()
@@ -6,13 +7,22 @@
 if (typeof(Storage) !== "undefined") {
     // LocalStorage disponible
     if (localStorage.getItem("favGifos") !== null) {
-        console.log("ver favoritos");
-        // mostrar favoritos
-        showFavoritos()
-}else{
+        let gifos = JSON.parse(localStorage.getItem('favGifos'));
+        if (gifos.length){
+
+            console.log("ver favoritos: "+gifos.length);
+            // console.log(gifos);
+            // mostrar favoritos
+            showFavoritos()
+        } else {
+            console.log("no hay favoritos guardados")
+            errorFavoritos();
+        }
+    }else{
         console.log("no hay favoritos guardados")
+        errorFavoritos();
         //mostrar pantalla de error 
-    }
+        }
 } else {
     // LocalStorage no soportado en este navegador
     //console.log("NO SOPORTADO")
@@ -144,19 +154,19 @@ function showFavoritos() {
                         
             "<h3>"+'titulo'+"</h3>" +
                         
-            "<img class='resultadoGif' id='tarjet" +i+"' src="+gifos[i]+"/>" +
+            "<img class='resultadoGif' id='tarjetfav" +i+"' src="+gifos[i]+"/>" +
 
             "<div class='contenedorImagenes'>" +
-            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-fav-hover.svg' alt='favoritos' onclick='addFavorito(this)'/> "+
-            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-link-normal.svg' alt='' onclick='download(this)'/>"+
-            "<img class='hoverImagenes' id='arjet" +i+"'src='images/icon-max-normal.svg' alt='maximizar' onclick='maximizar(this)'/></div>" +  
+            "<img class='hoverImagenes' id='arjetfav" +i+"'src='images/icon-fav-hover.svg' alt='favoritos' onclick='addFavorito(this)'/> "+
+            "<img class='hoverImagenes' id='arjetfav" +i+"'src='images/icon-link-normal.svg' alt='' onclick='download(this)'/>"+
+            "<img class='hoverImagenes' id='arjetfav" +i+"'src='images/icon-max-normal.svg' alt='maximizar' onclick='maximizar(this)'/></div>" +  
                         
             "</div>"
 
-            let existe = checkFavGif(document.getElementById('tarjet'+i).src);
+            let existe = checkFavGif(document.getElementById('tarjetfav'+i).src);
             //console.log(existe)
-            if(existe)  document.getElementById('arjet'+i).src = 'images/icon-fav-active.svg'
-            else document.getElementById('arjet'+i).src = 'images/icon-fav-hover.svg'
+            if(existe)  document.getElementById('arjetfav'+i).src = 'images/icon-fav-active.svg'
+            else document.getElementById('arjetfav'+i).src = 'images/icon-fav-hover.svg'
 
         } 
                 
@@ -164,6 +174,16 @@ function showFavoritos() {
 
     
 }
+
+function errorFavoritos (){
+    var contenedor = document.getElementById('error');
+    contenedor.innerHTML += 
+        "<div class='errorFav'>"+
+        "<img src='images/icon-fav-sin-contenido.svg' alt='favoritosError' /> "+
+        "<h3> Guarda tu primer GIFO en Favoritos para que se muestre aqui!</h3>"+
+        "</div>"
+}
+
 //fin de favoritos
 
 document.getElementById('verMas').addEventListener('click', () => { 
