@@ -27,20 +27,39 @@
         </nav> 
     </header>
     <main>
-        <section class="favoritos" id="favoritos">
-            <h1>Favoritos</h1>
-            <div class="resultado" id="resultado"></div>
-            <button class="off" id="verMas">Ver Más</button>
-        </section>
-        <section class="trending" id="trending">
-            <h2 id="trendingH2">Trending GIFOS</h2>
-            <h3 id="trendingH3">Mira los ultimos GIFOS de nuestras comunidad.</h3>
-            <div class="gridTrending">
-                <img src="images/button-slider-left.svg" alt="izquierda" />
-                <div class="resulTrendingGif" id="resulTrendingGif"></div>
-                <img src="images/Button-Slider-right.svg" alt="derecha" />
+        <div id='max' class='apagado'>
+            
+            <img class="cruzGif" src="images/Button-close-hover-modo-noc.svg" alt="close" id="cerrar"/>
+            
+            <img id='max_gif' src="" alt=""/>
+            <div class="info">
+                <div>
+                    <h3>User</h3>
+                </div>
+                <div class='contenedorImagenes'>
+                    <img class='hoverImagenes'  src='images/icon-fav-hover.svg' alt='favoritos' onclick='addFavorito(this)'/> 
+                    <img class='hoverImagenes'  src='images/icon-link-normal.svg' alt='' onclick='download(this)'/>
+                </div>
             </div>
-        </section>
+        </div>
+        <div id="cuerpo" class="">
+            <section class="favoritos" id="favoritos">
+                <img class="corazonFavoritos" src="images/icon-favoritos.svg" alt="corazon" />
+                <h1>Favoritos</h1>
+                <div class='error' id="error"></div>
+                <div class="resultado" id="resultado"></div>
+                <button class="off" id="verMas">Ver Más</button>
+            </section>
+            <section class="trending" id="trending">
+                <h2 id="trendingH2">Trending GIFOS</h2>
+                <h3 id="trendingH3">Mira los ultimos GIFOS de nuestras comunidad.</h3>
+                <div class="gridTrending">
+                    <img src="images/button-slider-left.svg" alt="izquierda" />
+                    <div class="resulTrendingGif" id="resulTrendingGif"></div>
+                    <img src="images/Button-Slider-right.svg" alt="derecha" />
+                </div>
+            </section>
+        </div>
     </main>
     <footer>
         <div class="contenedorFooter">
@@ -56,5 +75,6 @@
     <div class="line" id="lineBotton"></div>
     <script src="javascript/favoritos.js" async></script>
     <script src="javascript/trending.js" async></script>
+    <script src="javascript/buttons.js" async></script>
 </body>
 </html>

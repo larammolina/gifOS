@@ -27,35 +27,54 @@
         </nav> 
     </header>
     <main>
-        <div class="gridCrearGifo">
-            <section class="imagenVideo">
-                <img class="camara" src="images/camara.svg" alt="camara" />
-                <img class = "luz" src="images/Path 2.svg" alt="luz"/>
-            </section>
-            <section class="cuadroDeGif">
-                <div class="cuadro">
-                    <h1 class="title" id="contenido">Aca podras crear tus propios <span class="gifos">GIFOS</span></h2>
-                    <p id="contenido2">¡Crea tu GIFO en sólo 3 pasos!</p>
-                    <p id='contenido3'>(sólo necesitas una cámara para grabar un video)</p>
-                    <video id='vid1' class="vid1"></video>
-                    <img id="showGif" class="off" src="" alt="NewGIFO"> 
-                </div> 
-                <div class="etapas">
-                    <p class="numeroEtapa">1</p>
-                    <p class="numeroEtapa">2</p>
-                    <p class="numeroEtapa">3</p>
+        <div id='max' class='apagado'>
+            
+            <img class="cruzGif" src="images/Button-close-hover-modo-noc.svg" alt="close" id="cerrar"/>
+            
+            <img id='max_gif' src="" alt=""/>
+            <div class="info">
+                <div>
+                    <h3>User</h3>
+                    
                 </div>
-                <div class="lineCrear"></div>
-                <div class="botones">
-                    <button id="comenzar">Comenzar</button>
-                    <button id="grabar">Grabar</button>
-                    <button id="finalizar">Finalizar</button>
-                    <button id="subirGifo">Subir GIFO</button>
-                </div>     
-            </section> 
-            <section class="rolloPelicula">
-                <img class="rollo" src="images/pelicula.svg" alt="rollo" />
-            </section>
+                <div class='contenedorImagenes'>
+                    <img class='hoverImagenes'  src='images/icon-fav-hover.svg' alt='favoritos' onclick='addFavorito(this)'/> 
+                    <img class='hoverImagenes'  src='images/icon-link-normal.svg' alt='' onclick='download(this)'/>
+                </div>
+            </div>
+        </div>
+        <div id="cuerpo" class="">
+            <div class="gridCrearGifo">
+                <section class="imagenVideo">
+                    <img class="camara" src="images/camara.svg" alt="camara" />
+                    <img class = "luz" src="images/Path 2.svg" alt="luz"/>
+                </section>
+                <section class="cuadroDeGif">
+                    <div class="cuadro">
+                        <h1 class="title" id="contenido">Aca podras crear tus propios <span class="gifos">GIFOS</span></h2>
+                        <p id="contenido2">¡Crea tu GIFO en sólo 3 pasos!</p>
+                        <p id='contenido3'>(sólo necesitas una cámara para grabar un video)</p>
+                        <video id='vid1' class="vid1"></video>
+                        <img id="showGif" class="off" src="" alt="NewGIFO"> 
+                        <div class='resultado' id='contenedorImagenesID'></div>
+                    </div>
+                    <div class="etapas">
+                        <p class="numeroEtapa" id="1">1</p>
+                        <p class="numeroEtapa" id="2">2</p>
+                        <p class="numeroEtapa" id="3">3</p>
+                    </div>
+                    <div class="lineCrear"></div>
+                    <div class="botones">
+                        <button id="comenzar">Comenzar</button>
+                        <button id="grabar">Grabar</button>
+                        <button id="finalizar">Finalizar</button>
+                        <button id="subirGifo">Subir GIFO</button>
+                    </div>     
+                </section> 
+                <section class="rolloPelicula">
+                    <img class="rollo" src="images/pelicula.svg" alt="rollo" />
+                </section>
+            </div>
         </div>
     </main>
     <footer>
@@ -72,5 +91,6 @@
     <div class="line" id="lineBotton"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.6/RecordRTC.js"></script>
     <script src="javascript/appCrearGif.js" async></script>
+    <script src="javascript/buttons.js" async></script>
 </body>
 </html>
