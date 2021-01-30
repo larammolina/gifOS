@@ -12,6 +12,16 @@ async function download(tarjeta){
     
 }
 
+function link(tarjeta){
+    let imgID = 't'+tarjeta.id
+    let imSRC = document.getElementById(imgID).src
+    window.alert('URL: '+imSRC)
+    console.log("url: "+imSRC)
+
+    // invokeSaveAsDialog(blob, 'download.gif');
+    
+}
+
 function download2(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -45,6 +55,7 @@ function maximizar(tarjeta){
     tarjetaMax.classList.add('max');
     max_gif.classList.add('on');
     max_gif.src = imSRC;
+    console.log('maximizando');
 
 }
 

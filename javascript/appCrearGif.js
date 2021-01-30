@@ -2,7 +2,7 @@
 const apiKey = 'KBzPxkz8JbGW5o84HBSui0A3IJFindfN';
 
 document.getElementById('grabar').style.display = 'none';
-document.getElementById('finalizar').style.display = 'none';
+document.getElementById('repetir').style.display = 'none';
 document.getElementById('subirGifo').style.display = 'none';
 
 
@@ -79,6 +79,9 @@ async function getStreamAndRecord() {
                     console.log("grabacion parada");
 
                     mostrarVID();
+                    document.getElementById('subirGifo').style.display = 'block';
+                    document.querySelector('#contenido').textContent = 'Su GIFO';
+                    // document.getElementById('repetir').style.display = 'block';
                     vidOff();
                 });
 
@@ -130,7 +133,7 @@ async function getStreamAndRecord() {
                 .then((myGif) => {
                     console.log("ID:" + myGif.data.id);
                     agregarGifo(myGif.data.id);
-                    document.querySelector('#contenido2').textContent = 'GIFO subido con éxito';
+                    document.querySelector('#contenido').textContent = 'GIFO subido con éxito';
 
                     const apiKey = 'KBzPxkz8JbGW5o84HBSui0A3IJFindfN';
                     let url = `http://api.giphy.com/v1/gifs/${(myGif.data.id)}?api_key=${apiKey}`;
@@ -148,7 +151,7 @@ async function getStreamAndRecord() {
 
                             "<div class='contenedorImagenesCrear'>" +
                                 "<img class='hoverImagenes' id='arjetCREA" +0+"'src='images/icon-download.svg' alt='descargar' onclick='download(this)'/>" +  
-                                "<img class='hoverImagenes' id='arjetCREA" +0+"'src='images/icon-link-normal.svg' alt='' onclick='download(this)'/></div>"+
+                                "<img class='hoverImagenes' id='arjetCREA" +0+"'src='images/icon-link-normal.svg' alt='' onclick='link(this)'/></div>"+
                             
                             "</div>"
                             canvas.classList.add('off');
@@ -171,12 +174,12 @@ async function getStreamAndRecord() {
             //segundo boton Grabar
             let grabar = document.getElementById('grabar');
             grabar.addEventListener('click', (ev) => {
-                document.querySelector('#contenido').textContent = '';
+                document.querySelector('#contenido').textContent = 'Grabando...';
                 document.querySelector('#contenido2').textContent = '';
                 document.querySelector('#contenido3').textContent = '';
 
                 document.getElementById('grabar').style.display = 'none';
-                document.getElementById('subirGifo').style.display = 'block';
+                document.getElementById('subirGifo').style.display = 'none';
                 document.getElementById('1').style.backgroundColor = 'white';
                 document.getElementById('1').style.color = '#572EE5';
                 document.getElementById('2').style.backgroundColor = '#572EE5';
@@ -185,21 +188,33 @@ async function getStreamAndRecord() {
 
             })
 
-            //tercer boton Finalizar 
-            let finalizar = document.getElementById('finalizar');
-            finalizar.addEventListener('click', (ev) => {
-                document.querySelector('#contenido').textContent = '';
+            document.querySelector('#contenido').textContent = 'Grabando...';
                 document.querySelector('#contenido2').textContent = '';
                 document.querySelector('#contenido3').textContent = '';
-                document.querySelector('#subiendoGifo').textContent = '';
+
                 document.getElementById('grabar').style.display = 'none';
-                document.getElementById('subirGifo').style.display = 'block';
-                document.getElementById('2').style.backgroundColor = 'white';
-                document.getElementById('2').style.color = '#572EE5';
-                document.getElementById('3').style.backgroundColor = '#572EE5';
-                document.getElementById('3').style.color = 'white';
-                pararGrabacion();
-            })
+                document.getElementById('subirGifo').style.display = 'none';
+                document.getElementById('1').style.backgroundColor = 'white';
+                document.getElementById('1').style.color = '#572EE5';
+                document.getElementById('2').style.backgroundColor = '#572EE5';
+                document.getElementById('2').style.color = 'white';
+                comenzarGrabar();
+
+            // //tercer boton Finalizar 
+            // let finalizar = document.getElementById('finalizar');
+            // finalizar.addEventListener('click', (ev) => {
+            //     document.querySelector('#contenido').textContent = '';
+            //     document.querySelector('#contenido2').textContent = '';
+            //     document.querySelector('#contenido3').textContent = '';
+            //     document.querySelector('#subiendoGifo').textContent = '';
+            //     document.getElementById('grabar').style.display = 'none';
+            //     document.getElementById('subirGifo').style.display = 'block';
+            //     document.getElementById('2').style.backgroundColor = 'white';
+            //     document.getElementById('2').style.color = '#572EE5';
+            //     document.getElementById('3').style.backgroundColor = '#572EE5';
+            //     document.getElementById('3').style.color = 'white';
+            //     pararGrabacion();
+            // })
 
             //cuarto boton SUBIR GIFO 
             let subirGifo = document.getElementById('subirGifo');
@@ -212,7 +227,7 @@ async function getStreamAndRecord() {
                 document.getElementById('2').style.color = '#572EE5';
                 document.getElementById('3').style.backgroundColor = '#572EE5';
                 document.getElementById('3').style.color = 'white';
-                document.querySelector('#contenido2').textContent = 'Estamos subiendo tu GIFO';
+                document.querySelector('#contenido').textContent = 'Estamos subiendo tu GIFO';
                 let respuesta = await subirGif();
                 console.log("Respuetsa: "+respuesta)
                 // if (respuesta) {
@@ -283,6 +298,7 @@ function modoNoche() {
     document.getElementById('lineTop').classList.toggle('darkBackground');
     document.getElementById('lineBotton').classList.toggle('darkBackground');
     document.getElementById('drop-menu').classList.toggle('blackBackground');
+    document.getElementById('max').classList.toggle('blackBackground');
 
     btnSwitch.textContent = 'Modo Diurno';
 }
